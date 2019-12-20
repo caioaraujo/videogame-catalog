@@ -16,11 +16,13 @@ by running:
 
 `pipenv install`
 
+Make a local copy of `local.env` file as `.env`. Once this project uses python-dotenv lib, all environment variables in .env value will be used in local running.
+
 ## Running 
 
 ### Local
 
-`flask run`<br>
+`flask init-db && flask run`<br>
 or<br>
 `make run`
 
