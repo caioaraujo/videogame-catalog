@@ -4,9 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "==5.3.2"
+flake8 = "==3.7.9" # FIXME: Flake8 is not available for python 3.8 yet (2019-12-19)
 
 [packages]
 Flask = "==1.1.1"
+python-dotenv = "==0.10.3"
 
 [requires]
 python_version = "3.8"
