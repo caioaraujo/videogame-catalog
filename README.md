@@ -1,5 +1,5 @@
 # videogame-catalog
-A Flask experiment.
+A Flask experiment. It's initially inspired in [Flask tutorial](https://flask.palletsprojects.com/en/1.1.x/tutorial/).
 
 ## Requirements
 
