@@ -20,12 +20,15 @@ def register():
 
         if not username:
             flash('Username is required.')
-        elif not password:
+            return render_template('auth/register.html')
+        if not password:
             flash('Password is required.')
-        elif db.execute(
+            return render_template('auth/register.html')
+        if db.execute(
             'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             flash(f'User {username} is already registered.')
+            return render_template('auth/register.html')
 
         db.execute(
             'INSERT INTO user (username, password) VALUES (?, ?)',
@@ -49,8 +52,10 @@ def login():
 
         if user is None:
             flash('Incorrect username.')
-        elif not check_password_hash(user['password'], password):
+            return render_template('auth/login.html')
+        if not check_password_hash(user['password'], password):
             flash('Incorrect password.')
+            return render_template('auth/login.html')
 
         session.clear()
         session['user_id'] = user['id']

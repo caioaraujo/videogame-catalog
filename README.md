@@ -30,8 +30,15 @@ or<br>
 
 This project uses flake8 checking. Install all development dependencies and execute:
 
-`flake8`
-
-or
-
+`flake8`<br>
+or<br>
 `make code-convention`
+
+## Tests
+
+For tests running, you should install all development dependencies.<br>
+Run all project tests with:
+
+`pytest`<br>
+or<br>
+`make test`

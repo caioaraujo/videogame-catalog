@@ -84,22 +84,26 @@ def update(id):
 
         if not name:
             flash('Name is required.')
-        elif not released_year:
+            return render_template('catalog/update.html', game=game)
+        if not released_year:
             flash('Released year is required.')
-        elif not publisher:
+            return render_template('catalog/update.html', game=game)
+        if not publisher:
             flash('Publisher is required.')
-        elif not platform:
+            return render_template('catalog/update.html', game=game)
+        if not platform:
             flash('Platform is required.')
-        else:
-            db = get_db()
-            db.execute(
-                'UPDATE game SET name = ?, released_year = ?,'
-                ' publisher = ?, platform = ?'
-                ' WHERE id = ?',
-                (name, released_year, publisher, platform, id)
-            )
-            db.commit()
-            return redirect(url_for('catalog.index'))
+            return render_template('catalog/update.html', game=game)
+
+        db = get_db()
+        db.execute(
+            'UPDATE game SET name = ?, released_year = ?,'
+            ' publisher = ?, platform = ?'
+            ' WHERE id = ?',
+            (name, released_year, publisher, platform, id)
+        )
+        db.commit()
+        return redirect(url_for('catalog.index'))
 
     return render_template('catalog/update.html', game=game)
 
