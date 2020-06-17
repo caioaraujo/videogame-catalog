@@ -18,11 +18,16 @@ by running:
 
 Make a local copy of `local.env` file as `.env`. Once this project uses python-dotenv lib, all environment variables in .env value will be used in local running.
 
+### Database
+Create a local database with name "videogame_catalog" in your postgres, then apply all migrations by running:
+
+`flask db upgrade`
+
 ## Running 
 
 ### Local
 
-`flask init-db && flask run`<br>
+`flask run`<br>
 or<br>
 `make run`
 

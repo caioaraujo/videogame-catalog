@@ -24,17 +24,13 @@ def register():
         if not password:
             flash('Password is required.')
             return render_template('auth/register.html')
-        if db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
+        user = User.query.filter_by(username=username).first()
+        if user is not None:
             flash(f'User {username} is already registered.')
             return render_template('auth/register.html')
-
-        db.execute(
-            'INSERT INTO user (username, password) VALUES (?, ?)',
-            (username, generate_password_hash(password))
-        )
-        db.commit()
+        user = User(username=username, password=generate_password_hash(password))
+        db.session.add(user)
+        db.session.commit()
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html')
@@ -45,19 +41,17 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        user = User.query.filter_by(username=username).first()
 
         if user is None:
             flash('Incorrect username.')
             return render_template('auth/login.html')
-        if not check_password_hash(user['password'], password):
+        if not check_password_hash(user.password, password):
             flash('Incorrect password.')
             return render_template('auth/login.html')
 
         session.clear()
-        session['user_id'] = user['id']
+        session['user_id'] = user.id
         return redirect(url_for('index'))
 
     return render_template('auth/login.html')
@@ -70,9 +64,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = db.execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        g.user = User.query.get(user_id)
 
 
 @bp.route('/logout')

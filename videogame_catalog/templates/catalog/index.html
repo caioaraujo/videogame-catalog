@@ -13,7 +13,7 @@
       <header>
         <div>
           <h1>{{ game['name'] }}</h1>
-          <div class="about">by {{ game['username'] }} on {{ game['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="about">by {{ game['user']['username'] }} on {{ game['created'].strftime('%Y-%m-%d') }}</div>
         </div>
         {% if g.user['id'] == game['author_id'] %}
           <a class="action" href="{{ url_for('catalog.update', id=game['id']) }}">Edit</a>

@@ -35,7 +35,13 @@ def create():
         elif not platform:
             flash('Platform is required.')
         else:
-            game = Game(name, released_year, publisher, platform, g.user['id'])
+            game = Game(
+                name=name,
+                released_year=released_year,
+                publisher=publisher,
+                platform=platform,
+                author_id=g.user.id,
+            )
             db.session.add(game)
             db.session.commit()
             return redirect(url_for('catalog.index'))
@@ -49,7 +55,7 @@ def get_game(id, check_author=True):
     if game is None:
         abort(404, "Game id {0} doesn't exist.".format(id))
 
-    if check_author and game['author_id'] != g.user['id']:
+    if check_author and game.author_id != g.user.id:
         abort(403)
 
     return game
