@@ -9,7 +9,7 @@ flake8 = "==3.8.3"
 coverage = "==5.0.4"
 
 [packages]
-Flask = "==1.1.2"
+Flask = "==2.3.2"
 python-dotenv = "==0.13.0"
 psycopg2-binary = "==2.8.5"
 Flask-SQLAlchemy = "==2.4.3"
